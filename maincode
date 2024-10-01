@@ -1,0 +1,91 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class CompoundInvesting {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        // Print welcome message
+        System.out.println("--------------------------------------------------------------------------");
+        System.out.println("Welcome to the compound investment calculator!");
+        System.out.println("--------------------------------------------------------------------------");
+
+        while (true) {
+            // Declare variables
+            String name;
+            double cnt = 1, years, startamnt, amnt, interest, startamnt1, startamnt2;
+            double totalamount = 1;
+            
+            // Prompt user for their name
+            System.out.println("What is your name? Type 'Done' to exit.");
+            name = reader.readLine();
+            // Check if user wants to exit
+            if (name.equalsIgnoreCase("Done")) {
+                break;
+            }
+            System.out.println("--------------------------------------------------------------------------");
+
+            // Prompt user for annual investment amount
+            System.out.println("How much money would you like to invest (per year)?");
+            System.out.println("");
+            startamnt = Double.parseDouble(reader.readLine());
+            // Save initial investment amount for calculations
+            startamnt1 = startamnt;
+            startamnt2 = startamnt;
+
+            System.out.println("--------------------------------------------------------------------------");
+
+            // Prompt user for the number of years to invest
+            System.out.println("How many years would you like to invest? (Up to 15)");
+            System.out.println("");
+            years = Double.parseDouble(reader.readLine());
+            System.out.println("--------------------------------------------------------------------------");
+
+            // Prompt user for the interest rate
+            System.out.println("Enter an interest rate you would like it to be invested at. (Eg. 5.25)");
+            System.out.println("");
+            interest = Double.parseDouble(reader.readLine());
+            System.out.println("--------------------------------------------------------------------------");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("--------------------------------------------------------------------------");
+            System.out.println("Name : " + name);
+            System.out.println("--------------------------------------------------------------------------");
+
+            // Print header
+            System.out.printf("%-11s %-25s %-15s %-15s %n", "Year", "Amount in Account", "Interest", "Total");
+            System.out.println("--------------------------------------------------------------------------");
+
+            // Loop through each year and calculate compound interest
+            while (cnt <= years) {
+                
+                // Calculate interest for the current year
+                amnt = ((interest / 100) * startamnt);
+
+                // Update the investment amount for the next year
+                startamnt += amnt;
+
+                // Calculate yearly investment
+                double amnt1 = startamnt - startamnt1;
+                double yearlyinvst = startamnt1 + amnt1;
+                totalamount += yearlyinvst;
+
+                // Print results for the current year
+                System.out.printf("%-11.0f %-25.2f %-15.2f %-15.2f %n", cnt,  startamnt2, startamnt - startamnt1, totalamount);
+                System.out.println("--------------------------------------------------------------------------");
+
+                // Increase startAmount2 by 150 only after the first year
+                if (cnt >=1){
+                    startamnt2 += 150;
+                }
+                startamnt2 += amnt;
+
+                // Increase year by 1
+                cnt++;
+            }          
+        }
+    }
+}
